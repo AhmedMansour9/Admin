@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "188061470835",
+    "firebase_url": "https://bekya-5f805.firebaseio.com",
+    "project_id": "bekya-5f805",
+    "storage_bucket": "bekya-5f805.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188061470835:android:81c95304b1eac37d",
+        "android_client_info": {
+          "package_name": "bekya.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188061470835-1nscnst78tuktjkmd2b7tcu865i3b8ij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bekya.admin",
+            "certificate_hash": "aa3f665062551b4b48bbd606b17bbeed8ba26deb"
+          }
+        },
+        {
+          "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAirEwZynFn5UmXeqrfWJI2g1elRJu_vvQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188061470835:android:4adc7208dbac2b2d",
+        "android_client_info": {
+          "package_name": "bekya.bekyaa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188061470835-rbtfacpp1rs98sojqpppnm45emkksgtn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bekya.bekyaa",
+            "certificate_hash": "aa3f665062551b4b48bbd606b17bbeed8ba26deb"
+          }
+        },
+        {
+          "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAirEwZynFn5UmXeqrfWJI2g1elRJu_vvQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188061470835:android:5f97b973744ca70b",
+        "android_client_info": {
+          "package_name": "com.example.bekya.bekya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188061470835-oqrb1mi97tsrdge5lgnu5rmgc45j8lgk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bekya.bekya",
+            "certificate_hash": "aa3f665062551b4b48bbd606b17bbeed8ba26deb"
+          }
+        },
+        {
+          "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAirEwZynFn5UmXeqrfWJI2g1elRJu_vvQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188061470835-chh9qh480nis59c7rff59tguckd3sbjr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
