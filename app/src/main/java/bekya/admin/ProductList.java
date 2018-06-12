@@ -199,7 +199,35 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         }
         return false;
     }
+    @Override
+    public void Callback(View v, int poistion) {
 
+        if(!Adapteritems.filteredList.isEmpty()){
+            Intent inty=new Intent(ProductList.this,ActivityOneItem.class);
+            inty.putExtra("child",child);
+            inty.putExtra("key", Adapteritems.filteredList.get(poistion).getImg1());
+            inty.putExtra("name", Adapteritems.filteredList.get(poistion).getName());
+            inty.putExtra("discrp", Adapteritems.filteredList.get(poistion).getDiscrption());
+            inty.putExtra("discount", Adapteritems.filteredList.get(poistion).getDiscount());
+            inty.putExtra("phone", Adapteritems.filteredList.get(poistion).getPhone());
+            inty.putExtra("date", Adapteritems.filteredList.get(poistion).getDate());
+            startActivity(inty);
+
+        }else if(Adapteritems.filteredList.isEmpty()){
+            Intent inty=new Intent(ProductList.this,ActivityOneItem.class);
+            inty.putExtra("child",child);
+            inty.putExtra("key", arrayadmin.get(poistion).getImg1());
+            inty.putExtra("name", arrayadmin.get(poistion).getName());
+            inty.putExtra("discrp", arrayadmin.get(poistion).getDiscrption());
+            inty.putExtra("discount", arrayadmin.get(poistion).getDiscount());
+            inty.putExtra("phone", arrayadmin.get(poistion).getPhone());
+            inty.putExtra("date", arrayadmin.get(poistion).getDate());
+            startActivity(inty);
+
+        }
+
+
+    }
     public void RecycleviewSerach() {
         product.addTextChangedListener(new TextWatcher() {
             @Override
@@ -515,10 +543,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
 
     }
 
-    @Override
-    public void Callback(View v, int poistion) {
 
-    }
 
     @Override
     public void onRefresh() {
@@ -529,6 +554,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     @Override
     public void onClickCallback(View view, int adapterPosition) {
 
+
     }
 
     @Override
@@ -538,7 +564,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                String Name =array.get(adapterPosition).getName();
+                String Name =arrayadmin.get(adapterPosition).getName();
 
                 data.removeEventListener(mListener);
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products").child(child);
