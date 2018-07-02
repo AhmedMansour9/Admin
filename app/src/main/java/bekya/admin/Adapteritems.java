@@ -63,7 +63,7 @@ public class Adapteritems extends RecyclerView.Adapter<Adapteritems.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
         public ImageView image,imageedit,imgdelete;
         CardView itemcard;
-        TextView textname,textdiscraption,textdiscount,textphone,textdate,textadmin;
+        TextView textname,textdiscraption,textdiscount,textgovern,textdate,textadmin;
         public MyViewHolder(View view) {
             super(view);
             image =  view.findViewById(R.id.product_image);
@@ -71,9 +71,10 @@ public class Adapteritems extends RecyclerView.Adapter<Adapteritems.MyViewHolder
             imageedit=view.findViewById(R.id.imageedit);
             imgdelete=view.findViewById(R.id.imagedeleteee);
             textname= view.findViewById(R.id.product_name);
+
             textdiscraption= view.findViewById(R.id.discount);
             textdiscount= view.findViewById(R.id.discraptionn);
-            textphone= view.findViewById(R.id.textphone);
+            textgovern= view.findViewById(R.id.txtgovern);
             textdate=view.findViewById(R.id.textdate);
             itemcard=view.findViewById(R.id.itemcard);
             view.setOnClickListener(this);
@@ -146,8 +147,8 @@ public class Adapteritems extends RecyclerView.Adapter<Adapteritems.MyViewHolder
         String textdiscount=y.getDiscount();
         holder.textdiscount.setText(textdiscount);
 
-        String textphone=y.getPhone();
-        holder.textphone.setText(textphone);
+        String textgovern=y.getGovern();
+        holder.textgovern.setText(textgovern);
 
         String img1 = y.getImg1();
         String img2 = y.getImg2();

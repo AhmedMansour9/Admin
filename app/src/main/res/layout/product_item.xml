@@ -77,7 +77,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textphone"
+            android:id="@+id/txtgovern"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/discraptionn"
@@ -98,7 +98,7 @@
             android:id="@+id/textdate"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textphone"
+            android:layout_below="@id/txtgovern"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/product_image"

@@ -21,14 +21,7 @@
                 android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop"
                 android:src="@drawable/no_media" />
-            <ImageView
-                android:id="@+id/imgdelete"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="end"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:src="@drawable/deletee" />
+
         </FrameLayout>
 
         <ImageView

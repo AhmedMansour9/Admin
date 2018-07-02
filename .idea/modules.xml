@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Admin.iml" filepath="$PROJECT_DIR$/Admin.iml" />
+      <module fileurl="file://E:\CS 4\graduation\BekyaAdmiin\Admin.iml" filepath="E:\CS 4\graduation\BekyaAdmiin\Admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BekyaAdmiin.iml" filepath="$PROJECT_DIR$/BekyaAdmiin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

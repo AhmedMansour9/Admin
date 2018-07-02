@@ -134,13 +134,13 @@ public class GalleryAdapter extends BaseAdapter {
 					.findViewById(R.id.imgQueue);
 			holder.delete = (ImageView) convertView
 					.findViewById(R.id.imgdelete);
-			holder.delete.setOnClickListener(new View.OnClickListener() {
+		/*	holder.delete.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
 					data.remove(position);
 					notifyDataSetChanged();
 				}
-			});
+			});*/
 
 			holder.imgQueueMultiSelected = (ImageView) convertView
 					.findViewById(R.id.imgQueueMultiSelected);

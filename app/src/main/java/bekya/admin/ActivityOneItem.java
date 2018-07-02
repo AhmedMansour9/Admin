@@ -2,9 +2,13 @@ package bekya.admin;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ru.dimorinny.floatingtextbutton.FloatingTextButton;
+
 /**
  * Created by HP on 12/06/2018.
  */
@@ -37,13 +43,14 @@ public class ActivityOneItem extends AppCompatActivity {
     public RecyclerView recyclerView;
 
     TextView textprice;
-    TextView textname, textdiscrp, textdiscount, textphone, textdate;
+    TextView textgovern, textdiscrp, textdiscount, textphone, textdate;
     LinearLayoutManager linearLayoutManager;
     SwipeRefreshLayout mSwipeRefreshLayout;
     Retrivedata set;
     private static final String movieUrl = "http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4";
     String img1,img2,img3,img4;
     private ScrollGalleryView scrollGalleryView;
+    private static final int REQUEST_CALL = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +58,28 @@ public class ActivityOneItem extends AppCompatActivity {
         setContentView(R.layout.activityitem);
         set=new Retrivedata();
         array = new ArrayList<>();
-        textname = findViewById(R.id.textname);
-        textdiscrp = findViewById(R.id.textdiscrp);
-        textdiscount = findViewById(R.id.textdiscount);
-        textphone = findViewById(R.id.textphone);
-        textdate = findViewById(R.id.textdate);
+        textgovern = findViewById(R.id.textgovern);
 
-        String name = getIntent().getStringExtra("name");
+        textdiscrp = findViewById(R.id.textdiscrp);
+        textdiscount = findViewById(R.id.textprice);
+     //   textphone = findViewById(R.id.textphone);
+        textdate = findViewById(R.id.textdate);
+        FloatingTextButton floatingTextButton = findViewById(R.id.makecall);
+        floatingTextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makecall();
+            }
+        });
+        String govern = getIntent().getStringExtra("govern");
         String discrption = getIntent().getStringExtra("discrp");
         String discount = getIntent().getStringExtra("discount");
-        String phone = getIntent().getStringExtra("phone");
+       // String phone = getIntent().getStringExtra("phone");
         String date = getIntent().getStringExtra("date");
-        textname.setText(name);
+        textgovern.setText(govern);
         textdiscrp.setText(discrption);
         textdiscount.setText(discount);
-        textphone.setText(phone);
+       // textphone.setText(phone);
         textdate.setText(date);
         getdata(new firebase() {
             @Override
@@ -135,7 +149,27 @@ public class ActivityOneItem extends AppCompatActivity {
             img3
     ));
 
+    private void makecall() {
+        String phone = getIntent().getStringExtra("phone");
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + phone));
 
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ActivityOneItem.this, new String[]{android.Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+
+
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+        } else {
+            startActivity(intent);
+        }
+    }
 
 
     public void getdata(final firebase f){

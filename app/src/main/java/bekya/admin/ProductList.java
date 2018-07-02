@@ -1,5 +1,6 @@
 package bekya.admin;
 
+import android.*;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -81,7 +82,8 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     Button btnUpload;
     Button btnselect;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    EditText name, descrip, discount, price;
+    EditText govern, name, descrip, phone, price;
+    private RequestPermissionListener mRequestPermissionHandler;
     GridView gridGallery;
     Handler handler;
     ImageView imgone, imgtwo, imgthree, imgfour;
@@ -105,7 +107,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     StorageReference storageReference;
     public static String token;
     ArrayList<CustomGallery> dataT;
-    String Name, Discrption, Discount, Price;
+    String Govern, Name, Discrption, Phone, Price;
     String child;
     Dialog update_items_layout;
     Dialog update_info_layout;
@@ -135,6 +137,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         SharedPreferences shared = getSharedPreferences("cat", MODE_PRIVATE);
         child = shared.getString("Category", null);
         data = FirebaseDatabase.getInstance().getReference().child("Products").child(child);
+        mRequestPermissionHandler = new RequestPermissionListener();
 
         storage = FirebaseStorage.getInstance();
         rootlayout = findViewById(R.id.rootlayout);
@@ -155,6 +158,25 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         });
 
         RecycleviewSerach();
+    }
+    private void handleButtonClicked(){
+        mRequestPermissionHandler.requestPermission(this, new String[] {
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+        }, 200, new RequestPermissionListener.RequestPermissionListene() {
+            @Override
+            public void onSuccess() {
+                // Toast.makeText(ProductList.this, "request permission success", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Action.ACTION_MULTIPLE_PICK);
+                startActivityForResult(i, 200);
+
+            }
+
+            @Override
+            public void onFailed() {
+                Toast.makeText(ProductList.this, "request permission failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 
@@ -211,6 +233,8 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
             inty.putExtra("discount", Adapteritems.filteredList.get(poistion).getDiscount());
             inty.putExtra("phone", Adapteritems.filteredList.get(poistion).getPhone());
             inty.putExtra("date", Adapteritems.filteredList.get(poistion).getDate());
+            inty.putExtra("govern", Adapteritems.filteredList.get(poistion).getGovern());
+
             startActivity(inty);
 
         }else if(Adapteritems.filteredList.isEmpty()){
@@ -222,6 +246,8 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
             inty.putExtra("discount", arrayadmin.get(poistion).getDiscount());
             inty.putExtra("phone", arrayadmin.get(poistion).getPhone());
             inty.putExtra("date", arrayadmin.get(poistion).getDate());
+            inty.putExtra("govern", arrayadmin.get(poistion).getGovern());
+
             startActivity(inty);
 
         }
@@ -323,8 +349,10 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         update_info_layout.setContentView(R.layout.layout_add_product);
         name = update_info_layout.findViewById(R.id.Name);
         descrip = update_info_layout.findViewById(R.id.descrip);
-        discount = update_info_layout.findViewById(R.id.discount);
+        phone = update_info_layout.findViewById(R.id.phone);
         price = update_info_layout.findViewById(R.id.price);
+        govern = update_info_layout.findViewById(R.id.govern);
+
 
         gridGallery = update_info_layout.findViewById(R.id.gridGallery);
         gridGallery.setFastScrollEnabled(true);
@@ -358,15 +386,17 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     private void uploadimage() {
 
         Name = name.getText().toString().trim();
+        Govern = govern.getText().toString().trim();
+
         Discrption = descrip.getText().toString().trim();
-        Discount = discount.getText().toString().trim();
+        Phone = phone.getText().toString().trim();
         Price = price.getText().toString().trim();
 
-        if (Name.isEmpty() || Discrption.isEmpty() || Discount.isEmpty() || Price.isEmpty()) {
+        if (Name.isEmpty() || Discrption.isEmpty() || Phone.isEmpty() || Price.isEmpty() || Govern.isEmpty()) {
             Toast.makeText(getBaseContext(), "من فضلك أملآ جميع البيانات", Toast.LENGTH_SHORT).show();
 
         } else if (dataT == null) {
-            SavedSahredPrefrenceSwitch(Name, Discrption, Discount, Price);
+            SavedSahredPrefrenceSwitch(Name, Discrption, Phone, Price,Govern);
         } else {
             if (dataT != null) {
                 for (int i = 0; i < dataT.size(); i++) {
@@ -392,7 +422,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
 
                             if (pos == y) {
                                 progressDialog.dismiss();
-                                SavedSahredPrefrenceSwitch(Name, Discrption, Discount, Price);
+                                SavedSahredPrefrenceSwitch(Name, Discrption, Phone, Price,Govern);
                                 update_info_layout.dismiss();
                                 Snackbar.make(rootlayout, "تم إضافة منجك بنجاح", Snackbar.LENGTH_SHORT)
                                         .show();
@@ -418,8 +448,10 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     }
 
     private void chooseImage() {
-        Intent i = new Intent(Action.ACTION_MULTIPLE_PICK);
-        startActivityForResult(i, 200);
+        handleButtonClicked();
+
+//        Intent i = new Intent(Action.ACTION_MULTIPLE_PICK);
+//        startActivityForResult(i, 200);
 
     }
 
@@ -454,7 +486,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
 
     }
 
-    public void SavedSahredPrefrenceSwitch(String name, String discroption, String discount, String phone) {
+    public void SavedSahredPrefrenceSwitch(String name, String discroption, String phone, String discount,String govern) {
 
         SharedPreferences sharedPref = getSharedPreferences("Photo", MODE_PRIVATE);
         String jsonFavorit = sharedPref.getString("img", null);
@@ -472,6 +504,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 r.setImg3(favoriteIte[2]);
                 r.setImg4(favoriteIte[3]);
                 r.setName(name);
+                r.setGovern(govern);
                 r.setDiscrption(discroption);
                 r.setDiscount(discount);
                 r.setPhone(phone);
@@ -490,6 +523,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 r.setName(name);
                 r.setDiscrption(discroption);
                 r.setDiscount(discount);
+                r.setGovern(govern);
                 r.setPhone(phone);
                 r.setDate(date);
                 r.setToken(token);
@@ -506,6 +540,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 r.setDiscrption(discroption);
                 r.setDiscount(discount);
                 r.setPhone(phone);
+                r.setGovern(govern);
                 r.setDate(date);
                 r.setToken(token);
                 r.setAdmin(true);
@@ -520,6 +555,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 r.setDiscrption(discroption);
                 r.setDiscount(discount);
                 r.setPhone(phone);
+                r.setGovern(govern);
                 r.setDate(date);
                 r.setToken(token);
                 r.setAdmin(true);
@@ -533,6 +569,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
             r.setDiscrption(discroption);
             r.setDiscount(discount);
             r.setPhone(phone);
+            r.setGovern(govern);
             r.setDate(date);
             r.setToken(token);
             r.setAdmin(true);

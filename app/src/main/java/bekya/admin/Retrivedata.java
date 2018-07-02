@@ -14,12 +14,13 @@ public class Retrivedata {
    private String discount;
    private String phone;
    private String date;
-   private String token;
+    private String govern;
+    private String token;
    private String key;
    private Boolean Admin;
     public Retrivedata(){}
 
-    public Retrivedata(String img1, String img2, String img3, String img4, String name, String discrption, String discount, String phone, String date, String token) {
+    public Retrivedata(String img1, String img2, String img3, String img4, String name, String discrption, String discount, String phone, String date , String govern, String token) {
         this.img1 = img1;
         this.img2 = img2;
         this.img3 = img3;
@@ -29,7 +30,16 @@ public class Retrivedata {
         this.discount = discount;
         this.phone = phone;
         this.date = date;
+        this.govern = govern;
         this.token = token;
+    }
+
+    public String getGovern() {
+        return govern;
+    }
+
+    public void setGovern(String govern) {
+        this.govern = govern;
     }
 
     public Boolean getAdmin() {
