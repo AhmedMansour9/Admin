@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="bekya.admin.company">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:id="@+id/img2"
+        />
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:id="@+id/img1"
+        android:layout_toRightOf="@id/img2"
+        />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="20dp"
+        android:text="تحميل الصورة"
+        android:id="@+id/btnimg2"
+        android:background="@drawable/bcbtnimergencybutton"
+
+        />
+    <Button
+        android:layout_width="1550dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="30dp"
+        android:text="تحميل الصورة"
+        android:layout_toRightOf="@id/btnimg2"
+        android:id="@+id/btnimg1"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bcbtnimergencybutton"
+
+        />
+</RelativeLayout>
