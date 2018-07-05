@@ -132,8 +132,8 @@ public class GalleryAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.imgQueue = (ImageView) convertView
 					.findViewById(R.id.imgQueue);
-			holder.delete = (ImageView) convertView
-					.findViewById(R.id.imgdelete);
+//			holder.delete = (ImageView) convertView
+//					.findViewById(R.id.imgdelete);
 		/*	holder.delete.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
