@@ -89,7 +89,7 @@ public class CustomGalleryActivity extends Activity {
 
 		handler = new Handler();
 		gridGallery = (GridView) findViewById(R.id.gridGallery);
-		gridGallery.setFastScrollEnabled(true);
+		gridGallery.setFastScrollEnabled(false);
 		adapter = new GalleryAdapter(getApplicationContext(), imageLoader);
 		PauseOnScrollListener listener = new PauseOnScrollListener(imageLoader,
 				true, true);

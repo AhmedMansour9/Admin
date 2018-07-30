@@ -128,6 +128,9 @@ public class Home extends AppCompatActivity
             case R.id.posts:
                 fr = new company();
                 break;
+            case R.id.nav_messsage :
+                Intent intent = new Intent(Home.this , SendMessage.class);
+                startActivity(intent);
 
 
 

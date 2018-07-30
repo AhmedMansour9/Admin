@@ -130,7 +130,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         );
         setContentView(R.layout.activity_product_list);
         token = SharedPrefManager.getInstance(getApplicationContext()).getDeviceToken();
-        date2 = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        date2 = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(new Date());
         product = findViewById(R.id.findyourproduct);
         handler = new Handler();
         arrayadmin = new ArrayList<>();
@@ -286,7 +286,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
 
                     String Date = r.getDate();
                     int days = GetDays(Date, ProductList.date2);
-                    if (days > 30) {
+                    if (days > 90) {
                         mSwipeRefreshLayout.setRefreshing(false);
                     } else {
                         if (r != null && !hasId(r.getName())) {
@@ -493,7 +493,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         Gson gson3 = new Gson();
         String[] favoriteIte = gson3.fromJson(jsonFavorit, String[].class);
         Retrivedata r = new Retrivedata();
-        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(new Date());
 
         if (jsonFavorit != null) {
 
@@ -639,7 +639,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     public int GetDays(String dateone,String datetwo){
         String date1 = dateone;
         String date2 =datetwo;
-        DateTimeFormatter formatter =  DateTimeFormat.forPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter =  DateTimeFormat.forPattern("dd-MM-yyyy").withLocale(Locale.ENGLISH);
         DateTime d1 = formatter.parseDateTime(date1);
         DateTime d2 = formatter.parseDateTime(date2);
         long diffInMillis = d2.getMillis() - d1.getMillis();
