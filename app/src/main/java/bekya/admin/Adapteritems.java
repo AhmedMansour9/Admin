@@ -123,17 +123,11 @@ public class Adapteritems extends RecyclerView.Adapter<Adapteritems.MyViewHolder
             holder.textadmin.setVisibility(View.VISIBLE);
 
         }else {
-
+            holder.textadmin.setVisibility(View.GONE);
         }
 
-        String token=y.getToken();
-//        if(token.equals(Home.token)){
-//            holder.imageedit.setVisibility(View.VISIBLE);
-//            holder.imgdelete.setVisibility(View.VISIBLE);
-//        }else {
-//            holder.imageedit.setVisibility(View.INVISIBLE);
-//            holder.imgdelete.setVisibility(View.INVISIBLE);
-//        }
+
+
 
         String textdate=y.getDate();
         holder.textdate.setText(textdate);

@@ -61,6 +61,7 @@ public class Categories extends Fragment implements  SwipeRefreshLayout.OnRefres
                                     int position, long id) {
                 SharedPreferences.Editor share= getActivity().getSharedPreferences("cat", MODE_PRIVATE).edit();
                 share.putString("Category",listcatgory.get(position).getCatogories());
+                share.putString("categoryadmin",listcatgory.get(position).getCategory());
                 share.commit();
                 startActivity(new Intent(getContext(),ProductList.class));
 

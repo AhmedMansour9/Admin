@@ -7,6 +7,7 @@ package bekya.admin;
 public class Category {
     private String catogories;
     private String img;
+    private String category;
 
     public Category() {
 
@@ -15,6 +16,14 @@ public class Category {
     public Category(String catogories, String img) {
         this.catogories = catogories;
         this.img = img;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getCatogories() {

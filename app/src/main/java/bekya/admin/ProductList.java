@@ -96,7 +96,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     ArrayList<String> listimages = new ArrayList<>();
     ViewSwitcher viewSwitcher;
     ImageLoader imageLoader;
-    DatabaseReference data;
+    DatabaseReference data,dataadmin;
     private Adapteritems mAdapter;
     StorageReference storageRef;
     SharedPreferences.Editor editor;
@@ -108,7 +108,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     public static String token;
     ArrayList<CustomGallery> dataT;
     String Govern, Name, Discrption, Phone, Price;
-    String child;
+    String child,childadmin;
     Dialog update_items_layout;
     Dialog update_info_layout;
     public ChildEventListener mListener;
@@ -136,9 +136,10 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         arrayadmin = new ArrayList<>();
         SharedPreferences shared = getSharedPreferences("cat", MODE_PRIVATE);
         child = shared.getString("Category", null);
+        childadmin=shared.getString("categoryadmin",null);
         data = FirebaseDatabase.getInstance().getReference().child("Products").child(child);
         mRequestPermissionHandler = new RequestPermissionListener();
-
+          dataadmin= FirebaseDatabase.getInstance().getReference().child("Products").child(childadmin);
         storage = FirebaseStorage.getInstance();
         rootlayout = findViewById(R.id.rootlayout);
         editor = getApplicationContext().getSharedPreferences("Photo", MODE_PRIVATE).edit();
@@ -191,7 +192,12 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         mSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                Retrivedata();
+                arrayadmin.clear();
+                mAdapter.notifyDataSetChanged();
+
+                Retrivedataadmin();
+
+                Retrivedatauser();
             }
         });
     }
@@ -207,6 +213,9 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
     }
 
@@ -274,11 +283,9 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         });
     }
 
-    public void Retrivedata() {
-        arrayadmin.clear();
-        mAdapter.notifyDataSetChanged();
+    public void Retrivedatauser() {
         mSwipeRefreshLayout.setRefreshing(true);
-        mListener = data.addChildEventListener(new ChildEventListener() {
+     data.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists()) {
@@ -290,17 +297,61 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                         mSwipeRefreshLayout.setRefreshing(false);
                     } else {
                         if (r != null && !hasId(r.getName())) {
-                            if (r.getAdmin()) {
-                                arrayadmin.add(0, r);
-                            }
-                            if (r.getAdmin() == false) {
-                                arrayadmin.add(r);
-                            }
+                                arrayadmin.add( r);
+
                             mAdapter.notifyDataSetChanged();
                         }
 
 
                         mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                } else {
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void Retrivedataadmin() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        mListener=dataadmin.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.exists()) {
+                    Retrivedata r = dataSnapshot.getValue(Retrivedata.class);
+
+                    String Date = r.getDate();
+                    int days = GetDays(Date, ProductList.date2);
+                    if (days > 7) {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    } else {
+                        if (r != null && !hasId(r.getName())) {
+                                arrayadmin.add( r);
+                             mAdapter.notifyDataSetChanged();
+
+                        }
+
+                        mSwipeRefreshLayout.setRefreshing(false);
+
                     }
                 } else {
                 }
@@ -511,7 +562,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 r.setDate(date);
                 r.setToken(token);
                 r.setAdmin(true);
-                data.push().setValue(r);
+                dataadmin.push().setValue(r);
                 Snackbar.make(rootlayout, "تم إضافة منجك بنجاح", Snackbar.LENGTH_SHORT)
                         .show();
 
@@ -528,7 +579,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 r.setDate(date);
                 r.setToken(token);
                 r.setAdmin(true);
-                data.push().setValue(r);
+                dataadmin.push().setValue(r);
                 Snackbar.make(rootlayout, "تم إضافة منجك بنجاح", Snackbar.LENGTH_SHORT)
                         .show();
 
@@ -544,7 +595,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 r.setDate(date);
                 r.setToken(token);
                 r.setAdmin(true);
-                data.push().setValue(r);
+                dataadmin.push().setValue(r);
                 Snackbar.make(rootlayout, "تم إضافة منجك بنجاح", Snackbar.LENGTH_SHORT)
                         .show();
 
@@ -559,7 +610,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 r.setDate(date);
                 r.setToken(token);
                 r.setAdmin(true);
-                data.push().setValue(r);
+                dataadmin.push().setValue(r);
                 Snackbar.make(rootlayout, "تم إضافة منجك بنجاح", Snackbar.LENGTH_SHORT)
                         .show();
 
@@ -573,7 +624,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
             r.setDate(date);
             r.setToken(token);
             r.setAdmin(true);
-            data.push().setValue(r);
+            dataadmin.push().setValue(r);
             Snackbar.make(rootlayout, "تم إضافة منجك بنجاح", Snackbar.LENGTH_SHORT)
                     .show();
         }
@@ -584,7 +635,12 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        Retrivedata();
+        arrayadmin.clear();
+        mAdapter.notifyDataSetChanged();
+
+        Retrivedataadmin();
+        Retrivedatauser();
+
     }
 
 
@@ -604,7 +660,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
                 String Name =arrayadmin.get(adapterPosition).getName();
 
                 data.removeEventListener(mListener);
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products").child(child);
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products").child(childadmin);
                 databaseReference.orderByChild("name").equalTo(Name).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
