@@ -194,10 +194,10 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
             public void run() {
                 arrayadmin.clear();
                 mAdapter.notifyDataSetChanged();
-
+                Retrivedatauser();
                 Retrivedataadmin();
 
-                Retrivedatauser();
+
             }
         });
     }
@@ -637,9 +637,9 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
     public void onRefresh() {
         arrayadmin.clear();
         mAdapter.notifyDataSetChanged();
-
-        Retrivedataadmin();
         Retrivedatauser();
+        Retrivedataadmin();
+
 
     }
 
@@ -657,25 +657,25 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String Name =arrayadmin.get(adapterPosition).getName();
+                if(Adapteritems.filteredList.isEmpty()) {
+                     Name = arrayadmin.get(adapterPosition).getName();
+                }else {
+                     Name = Adapteritems.filteredList.get(adapterPosition).getName();
+                }
+                if(arrayadmin.get(adapterPosition).getAdmin()){
 
-                data.removeEventListener(mListener);
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products").child(childadmin);
-                databaseReference.orderByChild("name").equalTo(Name).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot data:dataSnapshot.getChildren()){
-                            data.getRef().removeValue();
-                        }
-                    }
+                    DeletetePost(childadmin,Name);
+                }else {
+                    DeletetePost(child,Name);
+                }
+                if(Adapteritems.filteredList.isEmpty()){
+                    arrayadmin.remove(adapterPosition);
+                    mAdapter.notifyDataSetChanged();
+                }else {
+                    Adapteritems.filteredList.remove(adapterPosition);
+                    mAdapter.notifyDataSetChanged();
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                arrayadmin.remove(adapterPosition);
-                mAdapter.notifyDataSetChanged();
+                }
 
                 dialog.cancel();
             }
@@ -691,7 +691,24 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
 
 
     }
+   public void DeletetePost(String child,String Name){
+       data.removeEventListener(mListener);
+       DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products").child(child);
+       databaseReference.orderByChild("name").equalTo(Name).addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               for (DataSnapshot data:dataSnapshot.getChildren()){
+                   data.getRef().removeValue();
+               }
+           }
 
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+
+           }
+       });
+
+   }
     public int GetDays(String dateone,String datetwo){
         String date1 = dateone;
         String date2 =datetwo;
