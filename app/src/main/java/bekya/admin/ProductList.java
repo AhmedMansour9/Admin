@@ -236,6 +236,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         if(!Adapteritems.filteredList.isEmpty()){
             Intent inty=new Intent(ProductList.this,ActivityOneItem.class);
             inty.putExtra("child",child);
+            inty.putExtra("childadmin",childadmin);
             inty.putExtra("key", Adapteritems.filteredList.get(poistion).getImg1());
             inty.putExtra("name", Adapteritems.filteredList.get(poistion).getName());
             inty.putExtra("discrp", Adapteritems.filteredList.get(poistion).getDiscrption());
@@ -249,6 +250,7 @@ public class ProductList extends AppCompatActivity implements SwipeRefreshLayout
         }else if(Adapteritems.filteredList.isEmpty()){
             Intent inty=new Intent(ProductList.this,ActivityOneItem.class);
             inty.putExtra("child",child);
+            inty.putExtra("childadmin",childadmin);
             inty.putExtra("key", arrayadmin.get(poistion).getImg1());
             inty.putExtra("name", arrayadmin.get(poistion).getName());
             inty.putExtra("discrp", arrayadmin.get(poistion).getDiscrption());
